@@ -1197,6 +1197,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
   const [isAdded, setIsAdded] = useState(false)
   const [activeTab, setActiveTab] = useState('info')
   const [isLiked, setIsLiked] = useState(isFavorite)
+  const [isImageZoomed, setIsImageZoomed] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -1207,11 +1208,17 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
 
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        if (isImageZoomed) {
+          setIsImageZoomed(false)
+        } else {
+          onClose()
+        }
+      }
     }
     window.addEventListener('keydown', handleEsc)
     return () => window.removeEventListener('keydown', handleEsc)
-  }, [onClose])
+  }, [onClose, isImageZoomed])
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
@@ -1259,12 +1266,14 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
           className='absolute inset-0 bg-black/80 backdrop-blur-md'
         />
 
+        {/* Основное модальное окно */}
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.95 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className='absolute inset-0 flex items-center justify-center p-2 md:p-4'
+          style={{ pointerEvents: isImageZoomed ? 'none' : 'auto' }}
         >
           <div
             className='relative w-full max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden border shadow-2xl flex flex-col'
@@ -1272,6 +1281,8 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
               background: 'var(--bg-card)',
               borderColor: 'var(--border-color)',
               maxHeight: 'calc(100vh - 16px)',
+              opacity: isImageZoomed ? 0 : 1,
+              transition: 'opacity 0.3s ease',
             }}
           >
             {/* Кнопки справа: Закрыть и Like */}
@@ -1299,7 +1310,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
             </div>
 
             <div className='flex flex-col md:flex-row overflow-hidden h-full'>
-              {/* Image Section - меньше высота на мобильных */}
+              {/* Image Section */}
               <div className='relative w-full md:w-2/5 h-40 sm:h-48 md:h-auto shrink-0 overflow-hidden'>
                 <motion.img
                   initial={{ scale: 1.1 }}
@@ -1307,9 +1318,30 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                   transition={{ duration: 0.6 }}
                   src={product.image}
                   alt={product.name}
-                  className='w-full h-full object-cover'
+                  className='w-full h-full object-cover cursor-zoom-in'
+                  onClick={() => setIsImageZoomed(true)}
                 />
-                <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent md:bg-linear-to-r md:from-transparent md:via-transparent md:to-black/60' />
+                <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-black/60 pointer-events-none' />
+
+                {/* Кнопка увеличения */}
+                <button
+                  onClick={() => setIsImageZoomed(true)}
+                  className='absolute bottom-3 right-3 md:bottom-4 md:right-4 p-2 rounded-full bg-black/60 backdrop-blur-sm text-white/80 hover:text-white hover:bg-black/80 transition-all z-10'
+                >
+                  <svg
+                    width='16'
+                    height='16'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                  >
+                    <circle cx='11' cy='11' r='8' />
+                    <line x1='21' y1='21' x2='16.65' y2='16.65' />
+                    <line x1='11' y1='8' x2='11' y2='14' />
+                    <line x1='8' y1='11' x2='14' y2='11' />
+                  </svg>
+                </button>
 
                 {/* Rating */}
                 <div
@@ -1321,9 +1353,9 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                 </div>
               </div>
 
-              {/* Content Section - без скролла на мобильных */}
+              {/* Content Section */}
               <div className='flex-1 p-3 md:p-5 flex flex-col overflow-hidden'>
-                {/* Header - компактный */}
+                {/* Header */}
                 <div className='shrink-0'>
                   <div className='flex items-center gap-1.5 mb-1'>
                     <GiChefToque size={12} style={{ color: 'var(--accent-gold)' }} />
@@ -1348,7 +1380,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                   </p>
                 </div>
 
-                {/* Price and Meta - компактный */}
+                {/* Price and Meta */}
                 <div
                   className='flex items-center justify-between py-2 border-b shrink-0'
                   style={{ borderColor: 'var(--border-color)' }}
@@ -1399,7 +1431,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                   </div>
                 </div>
 
-                {/* Tabs - компактные */}
+                {/* Tabs */}
                 <div
                   className='flex gap-1 my-2 p-0.5 rounded-lg shrink-0'
                   style={{ background: 'var(--hover-bg)' }}
@@ -1428,7 +1460,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                   ))}
                 </div>
 
-                {/* Tab Content - компактный, без скролла */}
+                {/* Tab Content */}
                 <div className='flex-1 min-h-0 overflow-y-auto'>
                   <AnimatePresence mode='wait'>
                     {activeTab === 'info' && (
@@ -1524,7 +1556,7 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                   </AnimatePresence>
                 </div>
 
-                {/* Add to cart - компактный */}
+                {/* Add to cart */}
                 <div
                   className='flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 border-t shrink-0'
                   style={{ borderColor: 'var(--border-color)' }}
@@ -1579,6 +1611,36 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
             </div>
           </div>
         </motion.div>
+
+        {/* Увеличенное изображение */}
+        <AnimatePresence>
+          {isImageZoomed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md'
+              onClick={() => setIsImageZoomed(false)}
+            >
+              <button
+                onClick={() => setIsImageZoomed(false)}
+                className='absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-all z-10'
+              >
+                <FiX size={24} />
+              </button>
+              <motion.img
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                src={product.image}
+                alt={product.name}
+                className='max-w-full max-h-full object-contain rounded-lg'
+                onClick={(e) => e.stopPropagation()}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </AnimatePresence>
   )
