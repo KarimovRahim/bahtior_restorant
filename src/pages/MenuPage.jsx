@@ -1311,18 +1311,6 @@ const ProductModal = ({ product, onClose, cartCount, onAdd, isFavorite, onToggle
                 />
                 <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent md:bg-linear-to-r md:from-transparent md:via-transparent md:to-black/60' />
 
-                {/* Badges */}
-                <div className='absolute top-3 left-3 md:top-4 md:left-4 flex flex-col gap-1.5'>
-                  <span className='px-2 py-0.5 bg-green-500 text-white text-[9px] md:text-xs font-bold rounded-full shadow-lg flex items-center gap-1 w-fit'>
-                    <FaFire size={9} />
-                    ХИТ
-                  </span>
-                  <span className='px-2 py-0.5 bg-black/50 backdrop-blur-sm border border-white/20 text-white text-[9px] md:text-xs font-medium rounded-full flex items-center gap-1 w-fit'>
-                    <FaLeaf size={9} />
-                    ФИРМЕННОЕ
-                  </span>
-                </div>
-
                 {/* Rating */}
                 <div
                   className='absolute bottom-3 left-3 md:bottom-4 md:left-4 flex items-center gap-1 px-2 py-0.5 bg-black/60 backdrop-blur-sm rounded-full'
