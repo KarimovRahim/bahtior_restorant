@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', 'Times New Roman', serif;
+}
+
+/* СВЕТЛАЯ ТЕМА */
+:root {
+  --bg-page: #FDF8F2;
+  --bg-page-gradient: linear-gradient(135deg, #FDF8F2 0%, #FFF5E8 100%);
+  --bg-card: #FFFFFF;
+  --bg-card-hover: linear-gradient(135deg, #FFFFFF 0%, #FFFBF5 100%);
+  --border-color: #E8D5B8;
+  --text-primary: #1A1410;
+  --text-secondary: #5A4A38;
+  --text-muted: #7A6A58;
+  --accent-gold: #C49A3C;
+  --accent-gold-light: #D4AF37;
+  --icon-color: #8B6F4A;
+  --chevron-color: #D4B98A;
+  --toggle-bg: #F0E4D4;
+  --toggle-text: #6B5A48;
+  --hover-bg: #FFF8EE;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --shadow-gold: 0 4px 12px rgba(196, 154, 60, 0.12);
+}
+
+/* ТЁМНАЯ ТЕМА */
+.dark {
+  --bg-page: #0A0E17;
+  --bg-page-gradient: linear-gradient(135deg, #0A0E17 0%, #0D1220 100%);
+  --bg-card: #131A2A;
+  --bg-card-hover: linear-gradient(135deg, #131A2A 0%, #182032 100%);
+  --border-color: #2A3550;
+  --text-primary: #F0F4FF;
+  --text-secondary: #B8C4E0;
+  --text-muted: #8899BB;
+  --accent-gold: #D4A83C;
+  --accent-gold-light: #E8C85A;
+  --icon-color: #9AACCC;
+  --chevron-color: #4A5A7A;
+  --toggle-bg: #1A2440;
+  --toggle-text: #9AACCC;
+  --hover-bg: #182238;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-gold: 0 4px 12px rgba(212, 168, 60, 0.15);
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-page-gradient);
+    color: var(--text-primary);
+  }
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Скроллбар */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  opacity: 0.3;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--accent-gold-light);
+}
