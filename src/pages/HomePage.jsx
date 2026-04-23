@@ -56,7 +56,7 @@ const HomePage = () => {
       label: 'ПОЗВОНИТЬ',
       subtitle: 'Бронь столов',
       description: 'Забронируйте столик за минуту',
-      action: () => (window.location.href = 'tel:+998901234567'),
+      link: '/call',
       delay: 80,
       accent: '#C49A3C',
       badge: '24/7',
@@ -66,10 +66,14 @@ const HomePage = () => {
       label: 'ОТЗЫВЫ',
       subtitle: 'Читать и оставить',
       description: 'Нас рекомендуют гости',
-      action: () => console.log('Отзывы'),
+      action: () =>
+        window.open(
+          'https://www.google.com/search?sca_esv=ae86052cd3dc9409&sxsrf=ANbL-n49yRAY9ZRnJ6Q1CnkOzbRCONaDog:1776874897009&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOWU_9hjcELUQK8dLji9y4leitJtnmN4ghADu-mRPLac5rSu-QrmT-stV48WwPDfJl_pYE9omNKCVWtKyTe14cTrN6TVJxL58gJY-_jeJ093EUX6CC_u670G1FH9D8eypkHLq5hI%3D&q=%D0%A0%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD+%D0%91%D0%B0%D1%85%D1%82%D0%B8%D1%91%D1%80+%D0%9E%D1%82%D0%B7%D1%8B%D0%B2%D1%8B&sa=X&ved=2ahUKEwi3m6_o7oGUAxX-wAIHHeD5B74Q0bkNegQIQBAH&cshid=1776874914426785&biw=1366&bih=679&dpr=1',
+          '_blank',
+        ),
       delay: 160,
       accent: '#C49A3C',
-      badge: '4.9★',
+      badge: '4.1★',
     },
     {
       icon: Gift,
@@ -84,9 +88,9 @@ const HomePage = () => {
     {
       icon: MapPin,
       label: 'ЛОКАЦИЯ',
-      subtitle: 'Яндекс навигатор',
+      subtitle: 'Наши филиалы',
       description: 'Мы в самом центре города',
-      action: () => window.open('https://yandex.ru/navi', '_blank'),
+      link: '/location',
       delay: 320,
       accent: '#C49A3C',
       badge: '📍',
@@ -94,9 +98,9 @@ const HomePage = () => {
     {
       icon: Send,
       label: 'НАПИШИТЕ НАМ',
-      subtitle: 'Telegram',
+      subtitle: 'Связь с нами',
       description: 'Ответим на все вопросы',
-      action: () => window.open('https://t.me/baxtiyor_restaurant', '_blank'),
+      link: '/contact',
       delay: 400,
       accent: '#C49A3C',
       badge: '⚡',
@@ -538,13 +542,17 @@ const MobileCard = ({ item, index, hoveredIndex, setHoveredIndex, isVisible, pre
       {/* Золотой блик сверху при hover */}
       <div
         className='absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-all duration-500'
-        style={{ background: 'linear-gradient(90deg, transparent, var(--accent-gold), transparent)' }}
+        style={{
+          background: 'linear-gradient(90deg, transparent, var(--accent-gold), transparent)',
+        }}
       />
 
       {/* Золотой блик снизу при hover */}
       <div
         className='absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-all duration-500'
-        style={{ background: 'linear-gradient(90deg, transparent, var(--accent-gold), transparent)' }}
+        style={{
+          background: 'linear-gradient(90deg, transparent, var(--accent-gold), transparent)',
+        }}
       />
 
       <div className='flex items-center gap-4 relative z-10'>
@@ -602,7 +610,8 @@ const MobileCard = ({ item, index, hoveredIndex, setHoveredIndex, isVisible, pre
         className='relative z-10 transition-all duration-500'
         style={{
           color: hoveredIndex === index ? 'var(--accent-gold)' : 'var(--chevron-color)',
-          transform: hoveredIndex === index ? 'translateX(8px) scale(1.2)' : 'translateX(0) scale(1)',
+          transform:
+            hoveredIndex === index ? 'translateX(8px) scale(1.2)' : 'translateX(0) scale(1)',
           opacity: hoveredIndex === index ? 1 : 0.4,
         }}
       >
@@ -717,7 +726,8 @@ const DesktopCard = ({ item, index, hoveredIndex, setHoveredIndex, preloadMenu }
             className='p-3 rounded-xl transition-all duration-500'
             style={{
               backgroundColor: hoveredIndex === index ? 'var(--accent-gold)30' : 'transparent',
-              transform: hoveredIndex === index ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)',
+              transform:
+                hoveredIndex === index ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)',
               animation: 'pulse 3s ease-in-out infinite',
             }}
           >
