@@ -42,7 +42,7 @@ const LocationPage = () => {
       hours: '09:00 - 22:00',
       hoursNote: 'в четверг до 23:00',
       description: 'Основной зал, живая музыка по пятницам и субботам',
-      mapUrl: 'https://maps.app.goo.gl/yUAsyRKWuXQFMLuP9?g_st=atm',
+      mapUrl: 'https://maps.app.goo.gl/kArHGGZLkyjMYvuH8?g_st=atm',
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ const LocationPage = () => {
       hours: '09:00 - 22:00',
       hoursNote: 'в четверг до 23:00',
       description: 'Уютный зал, идеально для семейных ужинов',
-      mapUrl: 'https://maps.app.goo.gl/kArHGGZLkyjMYvuH8?g_st=atm',
+      mapUrl: 'https://maps.app.goo.gl/yUAsyRKWuXQFMLuP9?g_st=atm',
     },
   ]
 
@@ -469,21 +469,6 @@ const LocationCard = ({ branch, index, isVisible, copiedAddress, onCopy, onOpenM
             <Navigation size={16} />
             Открыть карту
           </button>
-          <button
-            onClick={() => onCopy(branch.address, branch.id)}
-            className='px-4 py-3 rounded-xl font-medium transition-all hover:scale-105 flex items-center justify-center gap-2'
-            style={{
-              background: 'var(--toggle-bg)',
-              color: 'var(--text-secondary)',
-              border: '1px solid var(--border-color)',
-            }}
-          >
-            {copiedAddress === branch.id ? (
-              <Check size={16} style={{ color: '#22c55e' }} />
-            ) : (
-              <Copy size={16} style={{ color: 'var(--text-muted)' }} />
-            )}
-          </button>
         </div>
       </div>
     </div>
@@ -551,21 +536,6 @@ const DesktopLocationCard = ({ branch, index, copiedAddress, onCopy, onOpenMap }
           >
             <Navigation size={20} />
             Открыть на карте
-          </button>
-          <button
-            onClick={() => onCopy(branch.address, branch.id)}
-            className='px-6 py-4 rounded-xl font-medium transition-all hover:scale-105 flex items-center justify-center gap-2'
-            style={{
-              background: 'var(--toggle-bg)',
-              color: 'var(--text-secondary)',
-              border: '1px solid var(--border-color)',
-            }}
-          >
-            {copiedAddress === branch.id ? (
-              <Check size={20} style={{ color: '#22c55e' }} />
-            ) : (
-              <Copy size={20} style={{ color: 'var(--text-muted)' }} />
-            )}
           </button>
         </div>
       </div>
